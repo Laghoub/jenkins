@@ -7,7 +7,6 @@ pipeline {
         archiveArtifacts 'build/libs/*.jar'
       }
     }
-
     stage('Mail Notification') {
       steps {
         mail(subject: 'Jenkins notification', body: 'une nouvelle push dans Github', cc: 'hb_zatout@esi.dz')
