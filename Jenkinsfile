@@ -6,7 +6,6 @@ pipeline {
         bat 'gradle build'
         bat 'gradle javadoc'
         archiveArtifacts 'build/libs/*.jar'
-        junit 'build/test-results/'
       }
     }
 
@@ -21,7 +20,6 @@ pipeline {
         stage('Code Analysis') {
           steps {
             bat 'gradle sonarqube'
-            waitForQualityGate true
           }
         }
 
