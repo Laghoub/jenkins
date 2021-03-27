@@ -1,0 +1,76 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id "com.github.spacialcircumstances.gradle-cucumber-reporting" version "0.1.22"
+    id 'jacoco'
+    id "org.sonarqube" version "3.1.1"
+    id "maven-publish"
+    id "net.madeng.slack" version "0.0.23"
+}
+apply plugin: 'maven-publish'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+cucumberReports {
+    outputDir = file('build/reports/cucumber')
+    buildId = '0'
+    reports = files('reports/example-report.json')
+}
+
+dependencies {
+    testImplementation 'io.cucumber:cucumber-java:6.0.0'
+    testImplementation 'io.cucumber:cucumber-junit:6.0.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+test.finalizedBy "sonarqube"
+
+task generateMatrixAPI {
+    copy{
+        from 'build/reports'
+        into 'MatrixRelease/Matrix_v_1.0/reports'
+    }
+    copy{
+        from 'build/docs'
+        into 'MatrixRelease/Matrix_v_1.0/docs'
+    }
+    copy{
+        from 'build/libs'
+        into 'MatrixRelease/Matrix_v_1.0/libs'
+    }
+}
+
+generateMatrixAPI.dependsOn "javadoc", "build"
+
+publishing {
+    repositories {
+        maven {
+            url 'https://mymavenrepo.com/repo/lTyqo0JUF7iRBiftNU2d/'
+            credentials {
+                username 'myMavenRepo'
+                password 'ogl2020'
+            }
+        }
+    }
+
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
+generateMatrixAPI.finalizedBy "publish"
+
+slack{
+    webhookUrl 'https://hooks.slack.com/services/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'
+    message {
+        text = "Project is built newly and deployed"
+        channel = '#project'
+    }
+}
+publish.finalizedBy "publishToSlack"
