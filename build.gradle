@@ -28,7 +28,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-test.finalizedBy "sonarqube"
+//test.finalizedBy "sonarqube"
 
 task generateMatrixAPI {
     copy{
@@ -64,7 +64,7 @@ publishing {
         }
     }
 }
-generateMatrixAPI.finalizedBy "publish"
+//generateMatrixAPI.finalizedBy "publish"
 
 slack{
     webhookUrl 'https://hooks.slack.com/services/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'
@@ -73,4 +73,4 @@ slack{
         channel = '#project'
     }
 }
-publish.finalizedBy "publishToSlack"
+//publish.finalizedBy "publishToSlack"
