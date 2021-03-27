@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        bat 'gradle build'
+        bat 'gradle generateMatrixAPI'
+        archiveArtifacts 'build/libs/*.jar'
       }
     }
 
