@@ -13,10 +13,14 @@ pipeline {
       }
       post{
         failure{
-            mail="Build failed"
+            script{
+                mail="Build failed"
+            }
         }
         success{
-            mail="Build succeeded"
+            script{
+                mail="Build succeeded"
+            }
         }
       }
     }
