@@ -1,4 +1,3 @@
-def mail;
 pipeline {
   agent any
   stages {
@@ -9,19 +8,11 @@ pipeline {
         archiveArtifacts 'build/libs/*.jar'
         junit(testResults: 'build/test-results/test/*.xml', allowEmptyResults: true)
       }
-      post{
-        failure{
-            mail="Build failed"
-        }
-        success{
-            mail="Build succeeded"
-        }
-      }
     }
 
     stage('Mail Notification') {
       steps {
-        mail(subject: 'Jenkins notification', body: mail, cc: 'hb_zatout@esi.dz')
+        mail(subject: 'Jenkins notification', body: 'une nouvelle push dans Github', cc: 'hb_zatout@esi.dz')
       }
     }
 
@@ -29,8 +20,11 @@ pipeline {
       parallel {
         stage('Code Analysis') {
           steps {
-            bat 'gradle sonarqube'
-            waitForQualityGate abortPipeline: true
+            withSonarQubeEnv('SonarTiss') {
+              bat 'gradle sonarqube'
+            }
+
+            waitForQualityGate true
           }
         }
 
