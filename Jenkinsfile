@@ -20,10 +20,11 @@ pipeline {
       parallel {
         stage('Code Analysis') {
           steps {
-            withSonarQubeEnv('SonarTiss'){
-                bat 'gradle sonarqube'
+            withSonarQubeEnv('SonarTiss') {
+              bat 'gradle sonarqube'
             }
-            waitForQualityGate abortPipeline: true
+
+            waitForQualityGate true
           }
         }
 
