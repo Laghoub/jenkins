@@ -36,16 +36,11 @@ pipeline {
       parallel {
         stage('Code Analysis') {
           steps {
-            withSonarQubeEnv('My SonarQube Server') {
+            withSonarQubeEnv('sonar') {
               bat(script: 'gradle sonarqube', returnStatus: true)
             }
-              script {
-                  sleep 120
-                 def qg = waitForQualityGate() 
-                 if (qg.status != 'OK') {
-                   error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                 }
-              }
+
+            waitForQualityGate true
           }
         }
 
