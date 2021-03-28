@@ -41,7 +41,7 @@ pipeline {
 
     stage('Slack Notification') {
       steps {
-        slackSend(token: 'T01LX7C6ZBR/B01ST4JG18C/E4T83lk6QKPWfi0wnZWgrRWK', baseUrl: 'https://hooks.slack.com/services/', channel: '#project', message: 'Project is built newly and deployed')
+        slackSend(token: 'T01LX7C6ZBR/B01SJQJ7LF7/76DVeKq505GAktJwLyewt5u6', baseUrl: 'https://hooks.slack.com/services/', channel: '#project', message: 'Project is built newly and deployed')
       }
     }
 
