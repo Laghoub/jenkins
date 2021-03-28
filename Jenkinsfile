@@ -36,18 +36,13 @@ pipeline {
       parallel {
         stage('Code Analysis') {
           steps {
-           withSonarQubeEnv('My SonarQube Server') {
-                bat 'gradle sonarqube'
-           }
+            withSonarQubeEnv('My SonarQube Server') {
+              bat 'gradle sonarqube'
+            }
+
           }
         }
-        stage("Quality Gate") {
-            steps {
-              timeout(time: 1, unit: 'HOURS') {
-                waitForQualityGate abortPipeline: true
-              }
-            }
-          }
+
         stage('Test Reporting') {
           steps {
             cucumber 'reports/*json'
