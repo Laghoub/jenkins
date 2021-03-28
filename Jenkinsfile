@@ -1,27 +1,28 @@
 pipeline {
   agent any
-  environment {
-          mail = ""
-      }
   stages {
     stage('build') {
+      post {
+        failure {
+          script {
+            mail="Build failed"
+          }
+
+        }
+
+        success {
+          script {
+            mail="Build succeeded"
+          }
+
+        }
+
+      }
       steps {
         bat 'gradle build'
         bat 'gradle javadoc'
         archiveArtifacts 'build/libs/*.jar'
         junit(testResults: 'build/test-results/test/*.xml', allowEmptyResults: true)
-      }
-      post{
-        failure{
-            script{
-                mail="Build failed"
-            }
-        }
-        success{
-            script{
-                mail="Build succeeded"
-            }
-        }
       }
     }
 
@@ -36,7 +37,7 @@ pipeline {
         stage('Code Analysis') {
           steps {
             bat 'gradle sonarqube'
-            waitForQualityGate abortPipeline: true
+            waitForQualityGate true
           }
         }
 
@@ -61,5 +62,8 @@ pipeline {
       }
     }
 
+  }
+  environment {
+    mail = ''
   }
 }
