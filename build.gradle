@@ -74,4 +74,4 @@ publishing {
     }
 }
 publish.finalizedBy "publishToSlack"*/
-//test jenkins
+//demo jenkins
