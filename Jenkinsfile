@@ -39,10 +39,15 @@ pipeline {
            withSonarQubeEnv('My SonarQube Server') {
                 bat 'gradle sonarqube'
            }
-            waitForQualityGate abortPipeline: true
           }
         }
-
+        stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
         stage('Test Reporting') {
           steps {
             cucumber 'reports/*json'
