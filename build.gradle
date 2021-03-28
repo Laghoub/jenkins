@@ -30,7 +30,7 @@ dependencies {
 
 //test.finalizedBy "sonarqube"
 
-task generateMatrixAPI {
+/*task generateMatrixAPI {
     copy{
         from 'build/reports'
         into 'MatrixRelease/Matrix_v_1.0/reports'
@@ -46,7 +46,7 @@ task generateMatrixAPI {
 }
 
 generateMatrixAPI.dependsOn "javadoc", "build"
-
+*/
 publishing {
     repositories {
         maven {
