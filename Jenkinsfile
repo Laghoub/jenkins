@@ -1,6 +1,8 @@
-def mail;
 pipeline {
   agent any
+  environment {
+          mail = ""
+      }
   stages {
     stage('build') {
       steps {
