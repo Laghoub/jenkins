@@ -28,7 +28,7 @@ pipeline {
 
     stage('Mail Notification') {
       steps {
-        mail(subject: 'Jenkins notification', body: mail, cc: 'hb_zatout@esi.dz')
+        mail(subject: 'Jenkins notification', body: mail, cc: 'hn_laghoub@esi.dz', bcc: 'hb_zatout@esi.dz')
       }
     }
 
@@ -61,7 +61,7 @@ pipeline {
 
     stage('Slack Notification') {
       steps {
-        slackSend(token: 'T01LX7C6ZBR/B01SJQJ7LF7/76DVeKq505GAktJwLyewt5u6', baseUrl: 'https://hooks.slack.com/services/', channel: '#project', message: 'Project is built newly and deployed')
+        slackSend(token: 'T01LX7C6ZBR/B01SK252Y3F/VlQxKmIuHS7f6K48UV4mAOGl', baseUrl: 'https://hooks.slack.com/services/', channel: '#project', message: 'Project is built newly and deployed')
       }
     }
 
