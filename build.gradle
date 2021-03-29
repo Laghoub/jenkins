@@ -75,4 +75,4 @@ publishing {
 }
 publish.finalizedBy "publishToSlack"*/
 
-// démonstration TP JENKINS
+// Demonstration Test
